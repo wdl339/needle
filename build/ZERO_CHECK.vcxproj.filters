@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\code_for_self_learning\dlsyscourse\needle\build\CMakeFiles\45e15cfabebb14e36e0f847c8d0845a1\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{F5F5C061-6B65-3A7D-A173-B847B75705E0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
