@@ -1,4 +1,0 @@
-D:/code_for_self_learning/dlsyscourse/needle/build/CMakeFiles/ndarray_backend_cpu.dir
-D:/code_for_self_learning/dlsyscourse/needle/build/CMakeFiles/ndarray_backend_cuda.dir
-D:/code_for_self_learning/dlsyscourse/needle/build/CMakeFiles/ALL_BUILD.dir
-D:/code_for_self_learning/dlsyscourse/needle/build/CMakeFiles/ZERO_CHECK.dir
