@@ -10,20 +10,25 @@ import gc
 from needle.autograd import Tensor
 
 np.random.seed(0)
-# MY_DEVICE = ndl.backend_selection.cuda()
-
+DEVICE = os.environ.get("NEEDLE_DEVICE", "default")
+if DEVICE == "cuda":
+    MY_DEVICE = ndl.backend_selection.cuda()
+elif DEVICE == "cpu":
+    MY_DEVICE = ndl.backend_selection.cpu()
+else:
+    MY_DEVICE = ndl.backend_selection.default_device()
 
 def ResidualBlock(dim, hidden_dim, norm=nn.BatchNorm1d, drop_prob=0.1):
     ### BEGIN YOUR SOLUTION
     return nn.Sequential(
         nn.Residual(
             nn.Sequential(
-                nn.Linear(dim, hidden_dim),
-                norm(hidden_dim),
+                nn.Linear(dim, hidden_dim, device=MY_DEVICE),
+                norm(hidden_dim, device=MY_DEVICE),
                 nn.ReLU(),
                 nn.Dropout(drop_prob),
-                nn.Linear(hidden_dim, dim),
-                norm(dim)
+                nn.Linear(hidden_dim, dim, device=MY_DEVICE),
+                norm(dim, device=MY_DEVICE)
             )
         ),
         nn.ReLU()
@@ -41,10 +46,10 @@ def MLPResNet(
 ):
     ### BEGIN YOUR SOLUTION
     return nn.Sequential(
-        nn.Linear(dim, hidden_dim),
+        nn.Linear(dim, hidden_dim, device=MY_DEVICE),
         nn.ReLU(),
         *[ResidualBlock(hidden_dim, hidden_dim//2, norm, drop_prob) for _ in range(num_blocks)],
-        nn.Linear(hidden_dim, num_classes)
+        nn.Linear(hidden_dim, num_classes, device=MY_DEVICE)
     )
     ### END YOUR SOLUTION
 
@@ -56,8 +61,8 @@ def epoch(dataloader, model, opt=None):
     error_rate = 0
     loss = 0
     for x,y in dataloader:
-        x = ndl.Tensor(x, device=ndl.cpu())
-        y = ndl.Tensor(y, device=ndl.cpu())
+        x = ndl.Tensor(x, device=MY_DEVICE)
+        y = ndl.Tensor(y, device=MY_DEVICE)
         if opt is None:
             model.eval()
         else:
